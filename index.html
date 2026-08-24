@@ -1,0 +1,29 @@
+fetch('data.json')
+.then(response => response.json())
+.then(data => {
+
+    const healthChart = echarts.init(
+        document.getElementById('healthChart')
+    );
+
+    healthChart.setOption({
+
+        tooltip:{},
+
+        xAxis:{
+            type:'category',
+            data:data.device
+        },
+
+        yAxis:{
+            max:100
+        },
+
+        series:[{
+            type:'bar',
+            data:data.health
+        }]
+
+    });
+
+});
