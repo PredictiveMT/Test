@@ -1,7 +1,7 @@
 {
   "total": 47,
   "critical": 0,
-  "warning": 2,
+  "warning": 1,
   "devices": [
     {
       "device": "MC212",
@@ -15,13 +15,13 @@
     },
     {
       "device": "EMAG02",
-      "runout": 100,
-      "wear": 50,
+      "runout": 75,
+      "wear": 90,
       "tool_force": 90,
       "backlash": 100,
-      "overall": 83.0,
-      "risk": "中",
-      "suggestion": "重点检查主轴磨损"
+      "overall": 86.2,
+      "risk": "低",
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC101",
