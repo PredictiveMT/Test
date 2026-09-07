@@ -1,126 +1,141 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>预测性维修智能分析平台 V4</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>预测性维修智能分析平台</title>
 
 <script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:*order-box;
-font-family:"Microsoft *aHei";
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Microsoft YaHei";
 }
 
 body{
-background:#001529*
-color:#fff;
-padding:20px;
+    background:#001529;
+    color:white;
+    padding:20px;
 }
 
-.hea*er{
-font-size:38px;
-font-weight:bo*d;
-text-align:center;
-margin-botto*:20px;
+.header{
+    text-align:center;
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:20px;
 }
 
 .kpi{
-display:grid;
-grid*template-columns:repeat(6,1fr);
-ga*:15px;
-margin-bottom:20px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
 }
 
-.car*{
-background:#0b2440;
-border-radiu*:10px;
-padding:20px;
-text-align:ce*ter;
+.card{
+    background:#0b2440;
+    border-radius:10px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,150,255,.2);
 }
 
 .card h3{
-font-size:14px;
-*argin-bottom:10px;
-color:#91caff;
-*
+    color:#91caff;
+    margin-bottom:10px;
+}
 
-.value{
-font-size:28px;
-font-wei*ht:bold;
+.card .value{
+    font-size:36px;
+    font-weight:bold;
+}
+
+.main{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
 }
 
 .panel{
-background:#0b*440;
-border-radius:10px;
-padding:1*px;
-margin-bottom:20px;
+    background:#0b2440;
+    border-radius:10px;
+    padding:15px;
 }
 
-.panel-*itle{
-font-size:18px;
-margin-botto*:10px;
-color:#91caff;
+.panel-title{
+    color:#91caff;
+    margin-bottom:10px;
+    font-size:18px;
 }
 
-.chart{
-h*ight:450px;
-width:100%;
+#healthChart{
+    width:100%;
+    height:500px;
+}
+
+#radarChart{
+    width:100%;
+    height:350px;
 }
 
 table{
-*idth:100%;
-border-collapse:collaps*;
+    width:100%;
+    border-collapse:collapse;
 }
 
 th{
-padding:10px;
-background:*003a70;
+    background:#003a70;
+    padding:10px;
 }
 
 td{
-padding:8px;
-text-a*ign:center;
-border-bottom:1px soli* #1f466b;
+    padding:8px;
+    text-align:center;
+    border-bottom:1px solid #1f466b;
 }
 
-.green{
-background:#1*4d1d;
+.high{
+    color:#ff4d4f;
+    font-weight:bold;
 }
 
-.yellow{
-background:#6f57*0;
+.medium{
+    color:#faad14;
+    font-weight:bold;
 }
 
-.red{
-background:#5a1e1e;
-}
-*.main{
-display:grid;
-grid-template*columns:2fr 1fr;
-gap:20px;
+.low{
+    color:#52c41a;
+    font-weight:bold;
 }
 
-.adv*ce-item{
-background:#002140;
-paddi*g:10px;
-border-radius:6px;
-margin-*ottom:10px;
-line-height:1.8;
+#adviceBox{
+    margin-top:10px;
 }
 
-@m*dia(max-width:1200px){
+.advice-item{
+    background:#002140;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:6px;
+}
+
+@media(max-width:1200px){
+
+.main{
+grid-template-columns:1fr;
+}
 
 .kpi{
-grid*template-columns:repeat(2,1fr);
+grid-template-columns:repeat(2,1fr);
 }
-*.main{
-grid-template-columns:1fr;
-*
 
 }
 
@@ -130,69 +145,31 @@ grid-template-columns:1fr;
 
 <body>
 
-<d*v class="header">
+<div class="header">
 预测性维修智能分析平台
-</di*>
+</div>
 
 <div class="kpi">
 
-<div class="*ard">
+<div class="card">
 <h3>设备总数</h3>
-<div id="total* class="value">0</div>
+<div class="value" id="total">0</div>
 </div>
-
-<di* class="card">
-<h3>高风险设备</h3>
-<div*id="critical" class="value" style=*color:#ff4d4f">0</div>
-</div>
-
-<di* class="card">
-<h3>预警设备</h3>
-<div *d="warning" class="value" style="c*lor:#faad14">0</div>
-</div>
-
-<div *lass="card">
-<h3>健康设备</h3>
-<div id*"healthy" class="value" style="col*r:#52c41a">0</div>
-</div>
-
-<div cl*ss="card">
-<h3>平均风险指数</h3>
-<div id*"avgRisk" class="value">0</div>
-</*iv>
 
 <div class="card">
-<h3>平均趋势评分*/h3>
-<div id="avgTrend" class="val*e">0</div>
+<h3>高风险设备</h3>
+<div class="value" id="critical" style="color:#ff4d4f">0</div>
 </div>
 
+<div class="card">
+<h3>预警设备</h3>
+<div class="value" id="warning" style="color:#faad14">0</div>
 </div>
 
-<div cl*ss="panel">
-<div class="panel-titl*">综合健康度排行</div>
-<div id="healthCha*t" class="chart"></div>
+<div class="card">
+<h3>健康设备</h3>
+<div class="value" id="healthy" style="color:#52c41a">0</div>
 </div>
-
-<d*v class="panel">
-<div class="panel*title">设备测量项健康矩阵</div>
-
-<table id=*matrixTable">
-
-<thead>
-<tr>
-<th>设备*/th>
-<th>跳动</th>
-<th>磨损</th>
-<th>拉*力</th>
-<th>间隙</th>
-<th>综合</th>
-</t*>
-</thead>
-
-<tbody>
-</tbody>
-
-</table>
 
 </div>
 
@@ -203,10 +180,10 @@ grid-template-columns:1fr;
 <div class="panel">
 
 <div class="panel-title">
-设备健康雷达图
+设备综合健康度排行
 </div>
 
-<div id="radarChart" class="chart"></div>
+<div id="healthChart"></div>
 
 </div>
 
@@ -222,21 +199,29 @@ TOP10风险设备
 
 <table id="riskTable">
 
-<thead>
 <tr>
 <th>设备</th>
 <th>健康度</th>
-<th>风险指数</th>
 <th>风险</th>
 </tr>
-</thead>
-
-<tbody>
-</tbody>
 
 </table>
 
 </div>
+
+<br>
+
+<div class="panel">
+
+<div class="panel-title">
+设备健康雷达图
+</div>
+
+<div id="radarChart"></div>
+
+</div>
+
+<br>
 
 <div class="panel">
 
@@ -254,56 +239,29 @@ AI维修建议
 
 <script>
 
-function scoreClass(v){
-
-if(v < 70) return "red";
-
-if(v < 85) return "yellow";
-
-return "green";
-
-}
+let allData = null;
 
 fetch("data.json")
 
-.then(r=>r.json())
+.then(res=>res.json())
 
 .then(data=>{
 
+allData = data;
+
 document.getElementById("total").innerText =
-data.total || 0;
+data.total;
 
 document.getElementById("critical").innerText =
-data.critical || 0;
+data.critical;
 
 document.getElementById("warning").innerText =
-data.warning || 0;
+data.warning;
 
 document.getElementById("healthy").innerText =
-(data.total||0) -
-(data.critical||0) -
-(data.warning||0);
+data.total-data.critical-data.warning;
 
-const avgRisk =
-data.devices.reduce(
-(a,b)=>a+(b.risk_index||0),
-0
-) / data.devices.length;
-
-const avgTrend =
-data.devices.reduce(
-(a,b)=>a+(b.trend_score||0),
-0
-) / data.devices.length;
-
-document.getElementById("avgRisk").innerText =
-avgRisk.toFixed(1);
-
-document.getElementById("avgTrend").innerText =
-avgTrend.toFixed(1);
-
-const chart =
-echarts.init(
+const chart = echarts.init(
 document.getElementById("healthChart")
 );
 
@@ -311,14 +269,20 @@ chart.setOption({
 
 tooltip:{},
 
+grid:{
+left:'5%',
+right:'3%',
+bottom:'18%'
+},
+
 xAxis:{
 type:'category',
-data:data.devices.map(
-x=>x.device
-),
 axisLabel:{
 rotate:45
-}
+},
+data:data.devices.map(
+x=>x.device
+)
 },
 
 yAxis:{
@@ -334,149 +298,129 @@ x=>x.overall
 ),
 
 itemStyle:{
-color:function(p){
 
-if(p.value < 70)
+color:function(param){
+
+let v = param.value;
+
+if(v < 70)
 return '#ff4d4f';
 
-if(p.value < 85)
+if(v < 85)
 return '#faad14';
 
 return '#52c41a';
-
 }
+
 }
 
 }]
 
 });
 
-const tbody =
-document.querySelector("#matrixTable tbody");
+chart.on('click',function(params){
 
-data.devices.forEach(d=>{
+let deviceName=params.name;
 
-tbody.innerHTML += `
+let d=data.devices.find(
+x=>x.device===deviceName
+);
 
-<tr>
-
-<td>${d.device}</td>
-
-<td class="${scoreClass(d.runout_score)}">
-${d.runout_score}
-</td>
-
-<td class="${scoreClass(d.wear_score)}">
-${d.wear_score}
-</td>
-
-<td class="${scoreClass(d.tool_force_score)}">
-${d.tool_force_score}
-</td>
-
-<td class="${scoreClass(d.backlash_score)}">
-${d.backlash_score}
-</td>
-
-<td class="${scoreClass(d.overall)}">
-${d.overall}
-</td>
-
-</tr>
-
-`;
+drawRadar(d);
 
 });
 
-const riskBody =
-document.querySelector("#riskTable tbody");
+drawRadar(data.devices[0]);
+
+const table=
+document.getElementById("riskTable");
 
 data.devices
 .slice(0,10)
-.forEach(d=>{
+.forEach(item=>{
 
-riskBody.innerHTML += `
+let cls="low";
 
-<tr>
+if(item.risk==="高")
+cls="high";
 
-<td>${d.device}</td>
+if(item.risk==="中")
+cls="medium";
 
-<td>${d.overall}</td>
-
-<td>${d.risk_index}</td>
-
-<td>${d.risk}</td>
-
-</tr>
-
-`;
+table.innerHTML +=
+`<tr>
+<td>${item.device}</td>
+<td>${item.overall}</td>
+<td class="${cls}">
+${item.risk}
+</td>
+</tr>`;
 
 });
 
-const advice =
+const advice=
 document.getElementById("adviceBox");
 
 data.devices
+.filter(x=>x.risk!=="低")
 .slice(0,10)
-.forEach(d=>{
 
-advice.innerHTML += `
+.forEach(item=>{
 
-<div class="advice-item">
+advice.innerHTML +=
 
-<b>${d.device}</b>
+`<div class="advice-item">
 
-<br>
-
-综合健康度：
-${d.overall}
+<b>${item.device}</b>
 
 <br>
 
-趋势评分：
-${d.trend_score}
+健康度：${item.overall}
 
 <br>
 
-风险指数：
-${d.risk_index}
+建议：${item.suggestion}
 
-<br>
-
-建议：
-${d.suggestion}
-
-</div>
-
-`;
+</div>`;
 
 });
 
-const radar =
-echarts.init(
-document.getElementById("radarChart")
-);
+});
 
 function drawRadar(d){
+
+const radar=echarts.init(
+document.getElementById("radarChart")
+);
 
 radar.setOption({
 
 tooltip:{},
 
 radar:{
-
 indicator:[
 
-{name:'主轴跳动',max:100},
+{
+name:'主轴跳动',
+max:100
+},
 
-{name:'主轴磨损',max:100},
+{
+name:'主轴磨损',
+max:100
+},
 
-{name:'拉刀力',max:100},
+{
+name:'拉刀力',
+max:100
+},
 
-{name:'反向间隙',max:100}
+{
+name:'反向间隙',
+max:100
+}
 
 ]
-
 },
 
 series:[{
@@ -487,13 +431,13 @@ data:[{
 
 value:[
 
-d.runout_score,
+d.runout,
 
-d.wear_score,
+d.wear,
 
-d.tool_force_score,
+d.tool_force,
 
-d.backlash_score
+d.backlash
 
 ],
 
@@ -507,34 +451,8 @@ name:d.device
 
 }
 
-drawRadar(data.devices[0]);
-
-chart.on("click",function(p){
-
-const d =
-data.devices.find(
-x=>x.device===p.name
-);
-
-if(d){
-drawRadar(d);
-}
-
-});
-
-})
-
-.catch(err=>{
-
-console.error(err);
-
-alert(
-"读取 data.json 失败，请按F12查看控制台。"
-);
-
-});
-
 </script>
 
 </body>
+
 </html>
