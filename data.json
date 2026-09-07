@@ -1,7 +1,7 @@
 {
   "total": 47,
   "critical": 0,
-  "warning": 1,
+  "warning": 2,
   "devices": [
     {
       "device": "MC212",
@@ -12,6 +12,16 @@
       "overall": 77.5,
       "risk": "中",
       "suggestion": "重点检查主轴跳动"
+    },
+    {
+      "device": "EMAG02",
+      "runout": 100,
+      "wear": 50,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 83.0,
+      "risk": "中",
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC101",
@@ -132,16 +142,6 @@
       "overall": 92.0,
       "risk": "低",
       "suggestion": "重点检查拉刀力"
-    },
-    {
-      "device": "EMAG02",
-      "runout": 100,
-      "wear": 90,
-      "tool_force": 90,
-      "backlash": 100,
-      "overall": 95.0,
-      "risk": "低",
-      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC104",
