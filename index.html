@@ -1,194 +1,276 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<script>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+fetch("data.json")
+.then(response => response.json())
+.then(data => {
 
-<title>预测性维修智能分析平台 V4</title>
+    console.log(data);
 
-<script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    // KPI
 
-<style>
+    document.getElementById("total").innerHTML =
+        data.total;
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Microsoft YaHei";
-}
+    document.getElementById("critical").innerHTML =
+        data.critical;
 
-body{
-background:#001529;
-color:white;
-padding:20px;
-}
+    document.getElementById("warning").innerHTML =
+        data.warning;
 
-.header{
-font-size:38px;
-font-weight:bold;
-text-align:center;
-margin-bottom:20px;
-}
+    document.getElementById("healthy").innerHTML =
+        data.total -
+        data.critical -
+        data.warning;
 
-.kpi{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:15px;
-margin-bottom:20px;
-}
+    // 平均风险指数
 
-.card{
-background:#0b2440;
-border-radius:10px;
-padding:20px;
-text-align:center;
-}
+    let avgRisk =
+        data.devices.reduce(
+            (sum,d)=>sum+d.risk_index,
+            0
+        ) / data.devices.length;
 
-.card h3{
-font-size:15px;
-margin-bottom:10px;
-color:#91caff;
-}
+    document.getElementById("avgRisk").innerHTML =
+        avgRisk.toFixed(1);
 
-.value{
-font-size:32px;
-font-weight:bold;
-}
+    // 平均趋势评分
 
-.panel{
-background:#0b2440;
-border-radius:10px;
-padding:15px;
-margin-bottom:20px;
-}
+    let avgTrend =
+        data.devices.reduce(
+            (sum,d)=>sum+d.trend_score,
+            0
+        ) / data.devices.length;
 
-.panel-title{
-font-size:18px;
-color:#91caff;
-margin-bottom:10px;
-}
+    document.getElementById("avgTrend").innerHTML =
+        avgTrend.toFixed(1);
 
-.chart{
-height:400px;
-}
+    // 健康度排行
 
-table{
-width:100%;
-border-collapse:collapse;
-}
+    const healthChart =
+        echarts.init(
+            document.getElementById("healthChart")
+        );
 
-th{
-padding:10px;
-background:#003a70;
-}
+    healthChart.setOption({
 
-td{
-padding:8px;
-text-align:center;
-border-bottom:1px solid #1e3e63;
-}
+        tooltip:{},
 
-.high{
-color:#ff4d4f;
-font-weight:bold;
-}
+        xAxis:{
+            type:"category",
+            data:data.devices.map(
+                x=>x.device
+            ),
+            axisLabel:{
+                rotate:45
+            }
+        },
 
-.medium{
-color:#faad14;
-font-weight:bold;
-}
+        yAxis:{
+            max:100
+        },
 
-.low{
-color:#52c41a;
-font-weight:bold;
-}
+        series:[{
 
-.matrix-red{
-background:#5b1a1a;
-}
+            type:"bar",
 
-.matrix-yellow{
-background:#6b5311;
-}
+            data:data.devices.map(
+                x=>x.overall
+            ),
 
-.matrix-green{
-background:#164d1d;
-}
+            itemStyle:{
+                color:function(p){
 
-.main{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:20px;
-}
+                    if(p.value < 70)
+                        return "#ff4d4f";
 
-.advice-item{
-background:#002140;
-padding:10px;
-margin-bottom:10px;
-border-radius:6px;
-line-height:1.8;
-}
+                    if(p.value < 85)
+                        return "#faad14";
 
-</style>
+                    return "#52c41a";
 
-</head>
+                }
+            }
 
-<body>
+        }]
 
-<div class="header">
-预测性维修智能分析平台
-</div>
+    });
 
-<div class="kpi">
+    // 健康矩阵
 
-<div class="card">
-<h3>设备总数</h3>
-<div class="value" id="total">0</div>
-</div>
+    const matrix =
+        document.getElementById("matrixTable");
 
-<div class="card">
-<h3>高风险</h3>
-<div class="value" id="critical" style="color:#ff4d4f">0</div>
-</div>
+    data.devices.forEach(d=>{
 
-<div class="card">
-<h3>预警设备</h3>
-<div class="value" id="warning" style="color:#faad14">0</div>
-</div>
+        matrix.innerHTML += `
 
-<div class="card">
-<h3>健康设备</h3>
-<div class="value" id="healthy" style="color:#52c41a">0</div>
-</div>
+        <tr>
 
-<div class="card">
-<h3>平均风险指数</h3>
-<div class="value" id="avgRisk">0</div>
-</div>
+            <td>${d.device}</td>
 
-<div class="card">
-<h3>平均趋势评分</h3>
-<div class="value" id="avgTrend">0</div>
-</div>
+            <td>${d.runout_score}</td>
 
-</div>
+            <td>${d.wear_score}</td>
 
-<div class="panel">
-<div class="panel-title">综合健康度排行</div>
-<div id="healthChart" class="chart"></div>
-</div>
+            <td>${d.tool_force_score}</td>
 
-<div class="panel">
+            <td>${d.backlash_score}</td>
 
-<div class="panel-title">
-设备测量项健康度矩阵
-</div>
+            <td>${d.overall}</td>
 
-<table id="matrixTable">
+        </tr>
 
-<tr>
-<th>设备</th>
-<th>跳动</th>
-<th>磨损</th>
-<th>拉刀力</th>
+        `;
+
+    });
+
+    // TOP10风险表
+
+    const riskTable =
+        document.getElementById("riskTable");
+
+    data.devices
+    .slice(0,10)
+    .forEach(d=>{
+
+        riskTable.innerHTML += `
+
+        <tr>
+
+            <td>${d.device}</td>
+
+            <td>${d.overall}</td>
+
+            <td>${d.risk_index}</td>
+
+            <td>${d.risk}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+    // AI建议
+
+    const advice =
+        document.getElementById("adviceBox");
+
+    data.devices
+    .slice(0,10)
+    .forEach(d=>{
+
+        advice.innerHTML += `
+
+        <div class="advice-item">
+
+            <b>${d.device}</b>
+
+            <br>
+
+            综合健康度：
+            ${d.overall}
+
+            <br>
+
+            风险指数：
+            ${d.risk_index}
+
+            <br>
+
+            趋势评分：
+            ${d.trend_score}
+
+            <br>
+
+            建议：
+            ${d.suggestion}
+
+        </div>
+
+        `;
+
+    });
+
+    // 雷达图
+
+    const radar =
+        echarts.init(
+            document.getElementById("radarChart")
+        );
+
+    function drawRadar(device){
+
+        radar.setOption({
+
+            tooltip:{},
+
+            radar:{
+
+                indicator:[
+
+                    {name:'主轴跳动',max:100},
+
+                    {name:'主轴磨损',max:100},
+
+                    {name:'拉刀力',max:100},
+
+                    {name:'反向间隙',max:100}
+
+                ]
+            },
+
+            series:[{
+
+                type:'radar',
+
+                data:[{
+
+                    value:[
+
+                        device.runout_score,
+
+                        device.wear_score,
+
+                        device.tool_force_score,
+
+                        device.backlash_score
+
+                    ],
+
+                    name:device.device
+
+                }]
+
+            }]
+
+        });
+
+    }
+
+    drawRadar(data.devices[0]);
+
+    healthChart.on("click",function(p){
+
+        let d =
+            data.devices.find(
+                x=>x.device===p.name
+            );
+
+        drawRadar(d);
+
+    });
+
+})
+
+.catch(err => {
+
+    console.error(err);
+
+    alert(
+      "data.json读取失败，请按F12查看Console错误。"
+    );
+
+});
+
+</script>
