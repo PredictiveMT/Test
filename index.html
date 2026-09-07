@@ -1,9 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>预测性维修平台</title>
+
+<script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+<style>
+
+body{
+    background:#001529;
+    color:white;
+    font-family:Microsoft YaHei;
+}
+
+h1{
+    text-align:center;
+    margin-top:30px;
+}
+
+#healthChart{
+    width:100%;
+    height:600px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>预测性维修平台</h1>
+
+<div id="healthChart"></div>
+
+<script>
+
 fetch("data.json")
 .then(res=>res.json())
 .then(data=>{
 
     const chart = echarts.init(
-        document.getElementById('healthChart')
+        document.getElementById("healthChart")
     );
 
     chart.setOption({
@@ -11,7 +52,7 @@ fetch("data.json")
         tooltip:{},
 
         xAxis:{
-            type:'category',
+            type:"category",
             data:data.devices.map(
                 x=>x.device
             )
@@ -23,7 +64,7 @@ fetch("data.json")
 
         series:[{
 
-            type:'bar',
+            type:"bar",
 
             data:data.devices.map(
                 x=>x.health
@@ -52,3 +93,9 @@ fetch("data.json")
     });
 
 });
+
+</script>
+
+</body>
+
+</html>
