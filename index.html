@@ -1,276 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>预测性维修智能分析平台 V4</title>
+
+<script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:*order-box;
+font-family:"Microsoft *aHei";
+}
+
+body{
+background:#001529*
+color:#fff;
+padding:20px;
+}
+
+.hea*er{
+font-size:38px;
+font-weight:bo*d;
+text-align:center;
+margin-botto*:20px;
+}
+
+.kpi{
+display:grid;
+grid*template-columns:repeat(6,1fr);
+ga*:15px;
+margin-bottom:20px;
+}
+
+.car*{
+background:#0b2440;
+border-radiu*:10px;
+padding:20px;
+text-align:ce*ter;
+}
+
+.card h3{
+font-size:14px;
+*argin-bottom:10px;
+color:#91caff;
+*
+
+.value{
+font-size:28px;
+font-wei*ht:bold;
+}
+
+.panel{
+background:#0b*440;
+border-radius:10px;
+padding:1*px;
+margin-bottom:20px;
+}
+
+.panel-*itle{
+font-size:18px;
+margin-botto*:10px;
+color:#91caff;
+}
+
+.chart{
+h*ight:450px;
+width:100%;
+}
+
+table{
+*idth:100%;
+border-collapse:collaps*;
+}
+
+th{
+padding:10px;
+background:*003a70;
+}
+
+td{
+padding:8px;
+text-a*ign:center;
+border-bottom:1px soli* #1f466b;
+}
+
+.green{
+background:#1*4d1d;
+}
+
+.yellow{
+background:#6f57*0;
+}
+
+.red{
+background:#5a1e1e;
+}
+*.main{
+display:grid;
+grid-template*columns:2fr 1fr;
+gap:20px;
+}
+
+.adv*ce-item{
+background:#002140;
+paddi*g:10px;
+border-radius:6px;
+margin-*ottom:10px;
+line-height:1.8;
+}
+
+@m*dia(max-width:1200px){
+
+.kpi{
+grid*template-columns:repeat(2,1fr);
+}
+*.main{
+grid-template-columns:1fr;
+*
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<d*v class="header">
+预测性维修智能分析平台
+</di*>
+
+<div class="kpi">
+
+<div class="*ard">
+<h3>设备总数</h3>
+<div id="total* class="value">0</div>
+</div>
+
+<di* class="card">
+<h3>高风险设备</h3>
+<div*id="critical" class="value" style=*color:#ff4d4f">0</div>
+</div>
+
+<di* class="card">
+<h3>预警设备</h3>
+<div *d="warning" class="value" style="c*lor:#faad14">0</div>
+</div>
+
+<div *lass="card">
+<h3>健康设备</h3>
+<div id*"healthy" class="value" style="col*r:#52c41a">0</div>
+</div>
+
+<div cl*ss="card">
+<h3>平均风险指数</h3>
+<div id*"avgRisk" class="value">0</div>
+</*iv>
+
+<div class="card">
+<h3>平均趋势评分*/h3>
+<div id="avgTrend" class="val*e">0</div>
+</div>
+
+</div>
+
+<div cl*ss="panel">
+<div class="panel-titl*">综合健康度排行</div>
+<div id="healthCha*t" class="chart"></div>
+</div>
+
+<d*v class="panel">
+<div class="panel*title">设备测量项健康矩阵</div>
+
+<table id=*matrixTable">
+
+<thead>
+<tr>
+<th>设备*/th>
+<th>跳动</th>
+<th>磨损</th>
+<th>拉*力</th>
+<th>间隙</th>
+<th>综合</th>
+</t*>
+</thead>
+
+<tbody>
+</tbody>
+
+</table>
+
+</div>
+
+<div class="main">
+
+<div>
+
+<div class="panel">
+
+<div class="panel-title">
+设备健康雷达图
+</div>
+
+<div id="radarChart" class="chart"></div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="panel">
+
+<div class="panel-title">
+TOP10风险设备
+</div>
+
+<table id="riskTable">
+
+<thead>
+<tr>
+<th>设备</th>
+<th>健康度</th>
+<th>风险指数</th>
+<th>风险</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+
+</table>
+
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+AI维修建议
+</div>
+
+<div id="adviceBox"></div>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
+function scoreClass(v){
+
+if(v < 70) return "red";
+
+if(v < 85) return "yellow";
+
+return "green";
+
+}
+
 fetch("data.json")
-.then(response => response.json())
-.then(data => {
 
-    console.log(data);
+.then(r=>r.json())
 
-    // KPI
+.then(data=>{
 
-    document.getElementById("total").innerHTML =
-        data.total;
+document.getElementById("total").innerText =
+data.total || 0;
 
-    document.getElementById("critical").innerHTML =
-        data.critical;
+document.getElementById("critical").innerText =
+data.critical || 0;
 
-    document.getElementById("warning").innerHTML =
-        data.warning;
+document.getElementById("warning").innerText =
+data.warning || 0;
 
-    document.getElementById("healthy").innerHTML =
-        data.total -
-        data.critical -
-        data.warning;
+document.getElementById("healthy").innerText =
+(data.total||0) -
+(data.critical||0) -
+(data.warning||0);
 
-    // 平均风险指数
+const avgRisk =
+data.devices.reduce(
+(a,b)=>a+(b.risk_index||0),
+0
+) / data.devices.length;
 
-    let avgRisk =
-        data.devices.reduce(
-            (sum,d)=>sum+d.risk_index,
-            0
-        ) / data.devices.length;
+const avgTrend =
+data.devices.reduce(
+(a,b)=>a+(b.trend_score||0),
+0
+) / data.devices.length;
 
-    document.getElementById("avgRisk").innerHTML =
-        avgRisk.toFixed(1);
+document.getElementById("avgRisk").innerText =
+avgRisk.toFixed(1);
 
-    // 平均趋势评分
+document.getElementById("avgTrend").innerText =
+avgTrend.toFixed(1);
 
-    let avgTrend =
-        data.devices.reduce(
-            (sum,d)=>sum+d.trend_score,
-            0
-        ) / data.devices.length;
+const chart =
+echarts.init(
+document.getElementById("healthChart")
+);
 
-    document.getElementById("avgTrend").innerHTML =
-        avgTrend.toFixed(1);
+chart.setOption({
 
-    // 健康度排行
+tooltip:{},
 
-    const healthChart =
-        echarts.init(
-            document.getElementById("healthChart")
-        );
+xAxis:{
+type:'category',
+data:data.devices.map(
+x=>x.device
+),
+axisLabel:{
+rotate:45
+}
+},
 
-    healthChart.setOption({
+yAxis:{
+max:100
+},
 
-        tooltip:{},
+series:[{
 
-        xAxis:{
-            type:"category",
-            data:data.devices.map(
-                x=>x.device
-            ),
-            axisLabel:{
-                rotate:45
-            }
-        },
+type:'bar',
 
-        yAxis:{
-            max:100
-        },
+data:data.devices.map(
+x=>x.overall
+),
 
-        series:[{
+itemStyle:{
+color:function(p){
 
-            type:"bar",
+if(p.value < 70)
+return '#ff4d4f';
 
-            data:data.devices.map(
-                x=>x.overall
-            ),
+if(p.value < 85)
+return '#faad14';
 
-            itemStyle:{
-                color:function(p){
+return '#52c41a';
 
-                    if(p.value < 70)
-                        return "#ff4d4f";
+}
+}
 
-                    if(p.value < 85)
-                        return "#faad14";
+}]
 
-                    return "#52c41a";
+});
 
-                }
-            }
+const tbody =
+document.querySelector("#matrixTable tbody");
 
-        }]
+data.devices.forEach(d=>{
 
-    });
+tbody.innerHTML += `
 
-    // 健康矩阵
+<tr>
 
-    const matrix =
-        document.getElementById("matrixTable");
+<td>${d.device}</td>
 
-    data.devices.forEach(d=>{
+<td class="${scoreClass(d.runout_score)}">
+${d.runout_score}
+</td>
 
-        matrix.innerHTML += `
+<td class="${scoreClass(d.wear_score)}">
+${d.wear_score}
+</td>
 
-        <tr>
+<td class="${scoreClass(d.tool_force_score)}">
+${d.tool_force_score}
+</td>
 
-            <td>${d.device}</td>
+<td class="${scoreClass(d.backlash_score)}">
+${d.backlash_score}
+</td>
 
-            <td>${d.runout_score}</td>
+<td class="${scoreClass(d.overall)}">
+${d.overall}
+</td>
 
-            <td>${d.wear_score}</td>
+</tr>
 
-            <td>${d.tool_force_score}</td>
+`;
 
-            <td>${d.backlash_score}</td>
+});
 
-            <td>${d.overall}</td>
+const riskBody =
+document.querySelector("#riskTable tbody");
 
-        </tr>
+data.devices
+.slice(0,10)
+.forEach(d=>{
 
-        `;
+riskBody.innerHTML += `
 
-    });
+<tr>
 
-    // TOP10风险表
+<td>${d.device}</td>
 
-    const riskTable =
-        document.getElementById("riskTable");
+<td>${d.overall}</td>
 
-    data.devices
-    .slice(0,10)
-    .forEach(d=>{
+<td>${d.risk_index}</td>
 
-        riskTable.innerHTML += `
+<td>${d.risk}</td>
 
-        <tr>
+</tr>
 
-            <td>${d.device}</td>
+`;
 
-            <td>${d.overall}</td>
+});
 
-            <td>${d.risk_index}</td>
+const advice =
+document.getElementById("adviceBox");
 
-            <td>${d.risk}</td>
+data.devices
+.slice(0,10)
+.forEach(d=>{
 
-        </tr>
+advice.innerHTML += `
 
-        `;
+<div class="advice-item">
 
-    });
+<b>${d.device}</b>
 
-    // AI建议
+<br>
 
-    const advice =
-        document.getElementById("adviceBox");
+综合健康度：
+${d.overall}
 
-    data.devices
-    .slice(0,10)
-    .forEach(d=>{
+<br>
 
-        advice.innerHTML += `
+趋势评分：
+${d.trend_score}
 
-        <div class="advice-item">
+<br>
 
-            <b>${d.device}</b>
+风险指数：
+${d.risk_index}
 
-            <br>
+<br>
 
-            综合健康度：
-            ${d.overall}
+建议：
+${d.suggestion}
 
-            <br>
+</div>
 
-            风险指数：
-            ${d.risk_index}
+`;
 
-            <br>
+});
 
-            趋势评分：
-            ${d.trend_score}
+const radar =
+echarts.init(
+document.getElementById("radarChart")
+);
 
-            <br>
+function drawRadar(d){
 
-            建议：
-            ${d.suggestion}
+radar.setOption({
 
-        </div>
+tooltip:{},
 
-        `;
+radar:{
 
-    });
+indicator:[
 
-    // 雷达图
+{name:'主轴跳动',max:100},
 
-    const radar =
-        echarts.init(
-            document.getElementById("radarChart")
-        );
+{name:'主轴磨损',max:100},
 
-    function drawRadar(device){
+{name:'拉刀力',max:100},
 
-        radar.setOption({
+{name:'反向间隙',max:100}
 
-            tooltip:{},
+]
 
-            radar:{
+},
 
-                indicator:[
+series:[{
 
-                    {name:'主轴跳动',max:100},
+type:'radar',
 
-                    {name:'主轴磨损',max:100},
+data:[{
 
-                    {name:'拉刀力',max:100},
+value:[
 
-                    {name:'反向间隙',max:100}
+d.runout_score,
 
-                ]
-            },
+d.wear_score,
 
-            series:[{
+d.tool_force_score,
 
-                type:'radar',
+d.backlash_score
 
-                data:[{
+],
 
-                    value:[
+name:d.device
 
-                        device.runout_score,
+}]
 
-                        device.wear_score,
+}]
 
-                        device.tool_force_score,
+});
 
-                        device.backlash_score
+}
 
-                    ],
+drawRadar(data.devices[0]);
 
-                    name:device.device
+chart.on("click",function(p){
 
-                }]
+const d =
+data.devices.find(
+x=>x.device===p.name
+);
 
-            }]
+if(d){
+drawRadar(d);
+}
 
-        });
-
-    }
-
-    drawRadar(data.devices[0]);
-
-    healthChart.on("click",function(p){
-
-        let d =
-            data.devices.find(
-                x=>x.device===p.name
-            );
-
-        drawRadar(d);
-
-    });
+});
 
 })
 
-.catch(err => {
+.catch(err=>{
 
-    console.error(err);
+console.error(err);
 
-    alert(
-      "data.json读取失败，请按F12查看Console错误。"
-    );
+alert(
+"读取 data.json 失败，请按F12查看控制台。"
+);
 
 });
 
 </script>
+
+</body>
+</html>
