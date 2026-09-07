@@ -1,289 +1,477 @@
 {
   "total": 47,
-  "warning": 6,
-  "critical": 1,
+  "critical": 0,
+  "warning": 1,
   "devices": [
     {
       "device": "MC212",
-      "health": 55,
-      "risk": "高",
-      "suggestion": "建议30天内安排停机检查"
-    },
-    {
-      "device": "MC103",
-      "health": 80,
+      "runout": 50,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 77.5,
       "risk": "中",
-      "suggestion": "建议重点跟踪监测"
-    },
-    {
-      "device": "MC105",
-      "health": 80,
-      "risk": "中",
-      "suggestion": "建议重点跟踪监测"
-    },
-    {
-      "device": "MC107",
-      "health": 80,
-      "risk": "中",
-      "suggestion": "建议重点跟踪监测"
-    },
-    {
-      "device": "MC201",
-      "health": 80,
-      "risk": "中",
-      "suggestion": "建议重点跟踪监测"
-    },
-    {
-      "device": "MC210",
-      "health": 80,
-      "risk": "中",
-      "suggestion": "建议重点跟踪监测"
-    },
-    {
-      "device": "MC211",
-      "health": 80,
-      "risk": "中",
-      "suggestion": "建议重点跟踪监测"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC101",
-      "health": 85,
+      "runout": 90,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 91.5,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC102",
-      "health": 85,
+      "runout": 90,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 91.5,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC203",
-      "health": 85,
+      "runout": 90,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 91.5,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC206",
-      "health": 85,
+      "runout": 90,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 91.5,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC208",
-      "health": 85,
+      "runout": 90,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 91.5,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "MC209",
-      "health": 85,
+      "runout": 90,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 91.5,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
-      "device": "EMAG01",
-      "health": 95,
+      "device": "MC103",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 75,
+      "backlash": 100,
+      "overall": 92.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查拉刀力"
+    },
+    {
+      "device": "MC105",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 75,
+      "backlash": 100,
+      "overall": 92.0,
+      "risk": "低",
+      "suggestion": "重点检查拉刀力"
+    },
+    {
+      "device": "MC107",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 75,
+      "backlash": 100,
+      "overall": 92.0,
+      "risk": "低",
+      "suggestion": "重点检查拉刀力"
+    },
+    {
+      "device": "MC201",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 75,
+      "backlash": 100,
+      "overall": 92.0,
+      "risk": "低",
+      "suggestion": "重点检查拉刀力"
+    },
+    {
+      "device": "MC210",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 75,
+      "backlash": 100,
+      "overall": 92.0,
+      "risk": "低",
+      "suggestion": "重点检查拉刀力"
+    },
+    {
+      "device": "MC211",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 75,
+      "backlash": 100,
+      "overall": 92.0,
+      "risk": "低",
+      "suggestion": "重点检查拉刀力"
     },
     {
       "device": "EMAG02",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC104",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC106",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC108",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC109",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC202",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC204",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC205",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC207",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC213",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC214",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC215",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC216",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC217",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC218",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC219",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC301",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC302",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC303",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC304",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC305",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC306",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC307",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC308",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC309",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
-    },
-    {
-      "device": "MC310",
-      "health": 95,
-      "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "MC311",
-      "health": 95,
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 90,
+      "backlash": 100,
+      "overall": 95.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "EMAG01",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC204",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC207",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC213",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC214",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC215",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC216",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC217",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC218",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC301",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC303",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC307",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC309",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
+    },
+    {
+      "device": "MC310",
+      "runout": 100,
+      "wear": 90,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 97.0,
+      "risk": "低",
+      "suggestion": "重点检查主轴磨损"
     },
     {
       "device": "BG001",
-      "health": 100,
+      "runout": 100,
+      "wear": 100,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 100.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "BG002",
-      "health": 100,
+      "runout": 100,
+      "wear": 100,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 100.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "BG003",
-      "health": 100,
+      "runout": 100,
+      "wear": 100,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 100.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "BG004",
-      "health": 100,
+      "runout": 100,
+      "wear": 100,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 100.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "BG005",
-      "health": 100,
+      "runout": 100,
+      "wear": 100,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 100.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     },
     {
       "device": "BG006",
-      "health": 100,
+      "runout": 100,
+      "wear": 100,
+      "tool_force": 100,
+      "backlash": 100,
+      "overall": 100.0,
       "risk": "低",
-      "suggestion": "设备状态良好"
+      "suggestion": "重点检查主轴跳动"
     }
   ]
 }
